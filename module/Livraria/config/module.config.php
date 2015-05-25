@@ -14,13 +14,23 @@ return array(
                         'action'     => 'index',
                     ),
                 ),
-            ),      
-            
+            ),
+            'livraria-admin' => array(
+                'type' => 'Segment',
+                'options' => array(
+                        'route'    => '/admin/[:controller[/:action][/page/:page]]',
+                        'defaults' => array(                        
+                            'action'     => 'index',
+                            'page'       => 1
+                        ),
+                ),
+            ),
         ),
     ),    
     'controllers' => array(
         'invokables' => array(
-            'Livraria\Controller\Index' => 'Livraria\Controller\IndexController'
+            'Livraria\Controller\Index' => 'Livraria\Controller\IndexController',
+            'categorias' => 'LivrariaAdmin\Controller\CategoriasController'
         ),
     ),
     'view_manager' => array(
