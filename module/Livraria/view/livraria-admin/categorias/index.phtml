@@ -1,5 +1,7 @@
 <h1>Categorias</h1>
 <br>
+<p><a href="<?=$this->url('livraria-admin', array("controller" => 'categorias', 'action' => 'new'))?>" class="btn btn-primary btn-lg" data-role="button">Novo</a></p>
+
 <table class="table">
     <tr>
         <th>ID</th>
@@ -10,7 +12,14 @@
     <tr>
         <td><?php echo $entity->getId()?></td>
         <td><?php echo $entity->getNome()?></td>
-        <td></td>
+        <td width="50">
+                <a href="<?=$this->url('livraria-admin-interna', array('controller' => 'categorias', 'action' => 'edit', 'id' => $entity->getId()))?>">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a href="<?=$this->url('livraria-admin-interna', array('controller' => 'categorias', 'action' => 'delete', 'id' => $entity->getId()))?>">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+        </td>
     </tr>
     <?php endforeach; ?>
 </table>

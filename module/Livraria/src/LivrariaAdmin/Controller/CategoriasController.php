@@ -26,7 +26,7 @@ class CategoriasController extends AbstractActionController {
         
         $paginator = new Paginator(new ArrayAdapter($list));
         $paginator->setCurrentPageNumber($page)
-                ->setDefaultItemCountPerPage(1);
+                ->setDefaultItemCountPerPage(10);
         
         return new ViewModel(array('data' => $paginator, 'page' => $page));
     }
@@ -38,13 +38,45 @@ class CategoriasController extends AbstractActionController {
         if($request->isPost()) {
             $form->setData($request->getPost());
             if($form->isValid()) {
+                $service = $this->getServiceLocator()->get('Livraria\Service\Categoria');
                 
+                $service->insert($request->getPost()->toArray());
                 return $this->redirect()->toRoute('livraria-admin', array('controller' => 'categorias'));
             }
         }
         
         return new ViewModel(array('form' => $form));
     }
+    
+    public function editAction() {
+        $form = new FrmCategoria();        
+        $request = $this->getRequest();        
+        
+        $repository = $this->getEm()->getRepository('Livraria\Entity\Categoria');
+        $entity = $repository->find($this->params()->fromRoute("id",0));
+        
+        if($this->params()->fromRoute("id",0))
+            $form->setData($entity->toArray());
+
+        if($request->isPost()) {
+            $form->setData($request->getPost());
+            if($form->isValid()) {
+                $service = $this->getServiceLocator()->get('Livraria\Service\Categoria');
+                $service->update($request->getPost()->toArray());
+                
+                return $this->redirect()->toRoute('livraria-admin', array('controller' => 'categorias'));
+            }
+        }       
+        
+        return new ViewModel(array('form' => $form));
+    }
+    
+    public function deleteAction() {
+        $service = $this->getServiceLocator()->get('Livraria\Service\Categoria');
+        if($service->delete($this->params()->fromRoute("id",0))) {
+            return $this->redirect()->toRoute('livraria-admin', array('controller' => 'categorias'));
+        }
+    }   
     
     
     /**

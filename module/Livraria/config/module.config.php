@@ -8,21 +8,30 @@ return array(
             'livraria-home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/livraria',
+                    'route' => '/livraria',
                     'defaults' => array(
                         'controller' => 'Livraria\Controller\Index',
-                        'action'     => 'index',
+                        'action' => 'index',
                     ),
+                ),
+            ),
+            'livraria-admin-interna' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/admin/[:controller[/:action]][/:id]',
+                    'constraints' => array(
+                        'id'=> '[0-9]+'
+                    )
                 ),
             ),
             'livraria-admin' => array(
                 'type' => 'Segment',
                 'options' => array(
-                        'route'    => '/admin/[:controller[/:action][/page/:page]]',
-                        'defaults' => array(                        
-                            'action'     => 'index',
-                            'page'       => 1
-                        ),
+                    'route' => '/admin/[:controller[/:action][/page/:page]]',
+                    'defaults' => array(
+                        'action' => 'index',
+                        'page' => 1
+                    ),
                 ),
             ),
         ),
