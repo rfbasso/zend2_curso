@@ -1,0 +1,45 @@
+<h1>Eidtando Categoria</h1>
+<br>
+
+<?php 
+$form = $this->form; 
+$form->setAttribute('action',$this->url('livraria-admin-interna',array('controller' => 'livros', 'action' => 'edit')));
+
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+?>
+<div class="form-group">
+<?php
+echo $this->formRow($form->get('nome'));
+?>
+</div>
+<div class="form-group">
+<?php
+echo $this->formRow($form->get('categoria'));
+?>
+</div>
+<div class="form-group">
+<?php
+echo $this->formRow($form->get('autor'));
+?>
+</div>
+<div class="form-group">
+<?php
+echo $this->formRow($form->get('valor'));
+?>
+</div>
+<div class="form-group">
+<?php
+echo $this->formRow($form->get('isbn'));
+?>
+</div>
+<div class="form-group">
+<?php
+echo $this->formSubmit($form->get('submit'));
+?>
+</div>
+
+<?php
+echo $this->form()->closeTag();
+?>
